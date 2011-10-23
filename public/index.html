@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Example App</title>
+
+    <script type="text/javascript" src="https://www.google.com/jsapi?key=ABQIAAAA8Ip36mFfBP6Z5ASjZRBIehT2yXp_ZAY8_ufC3CFXhHIE1NvwkxSX_BRGiiGGuYcTOukVVSxmVOWmVg"></script>
+    <script>
+      function showTime() {
+         $.ajax({
+            url: "/time.json",
+            type: "GET",
+            dataType: "json",
+
+            success: function(data) 
+            {
+              $('#zone').text(data.zone);
+              $('#time').text(data.time);
+              
+              setTimeout('showTime();', 5000);
+            }
+          });  
+      }
+    
+      if (typeof google !== "undefined" && google !== null) 
+      {
+        google.load("jquery", "1.6.1");
+      }
+      
+      google.setOnLoadCallback(function() {
+        showTime();
+      });
+    </script>
+  </head>
+  <body>
+    This servers time is : 
+    <span id="time"></span>
+    <span id="zone"></span>
+  </body>
+</html>
